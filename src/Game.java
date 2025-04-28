@@ -48,8 +48,8 @@ public class Game {
             }
         } else {
             List<Point> pointsToDig = findCluster(solvedCells, new Point(x, y), new Point(x, y), new ArrayList<>());
-            pointsToDig.forEach(p -> System.out.printf("[%d, %d], ", p.x(), p.y()));
-            System.out.println();
+//            pointsToDig.forEach(p -> System.out.printf("[%d, %d], ", p.x(), p.y()));
+//            System.out.println();
             pointsToDig.forEach(p -> playerCells[p.y()][p.x()] = solvedCells[p.y()][p.x()]);
 
             // check if player wins
@@ -102,7 +102,7 @@ public class Game {
 //            int y = position / cols;
 //            cells[y][x] = 9;
 //        }
-        System.out.println(minePositions);
+//        System.out.println(minePositions);
 
         for (int y=0; y<cells.length; y++) {
             for (int x = 0; x < cells[0].length; x++) {
@@ -127,7 +127,7 @@ public class Game {
             }
         }
 
-        Arrays.stream(cells).forEach(row -> System.out.println(Arrays.toString(row)));
+//        Arrays.stream(cells).forEach(row -> System.out.println(Arrays.toString(row)));
         return cells;
     }
 
