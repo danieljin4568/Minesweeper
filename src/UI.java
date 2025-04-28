@@ -4,10 +4,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class UI extends JFrame {
-    private static final int ROWS = 9;
-    private static final int COLS = 9;
-    private static final int MINES = 10;
-
     private static final int CELL_SIZE = 32;
     private static final ImageIcon FLAG = new ImageIcon("flag_28dp.png");
     private static final ImageIcon BOMB = new ImageIcon("bomb_28dp.png");
@@ -16,21 +12,21 @@ public class UI extends JFrame {
     private JPanel panel;
     private JLabel[][] tiles;
 
-    public UI() {
+    public UI(int rows, int cols, int mines) {
         setTitle("Minesweeper");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
 
-        game = new Game(ROWS, COLS, MINES);
+        game = new Game(rows, cols, mines);
 
-        panel = new JPanel(new GridLayout(ROWS, COLS, 1,1));
+        panel = new JPanel(new GridLayout(rows, cols, 1,1));
         panel.setBackground(new Color(0,0,0));
 
-        tiles = new JLabel[ROWS][COLS];
+        tiles = new JLabel[rows][cols];
 
         for (int y = 0; y< tiles.length; y++) {
             for (int x = 0; x< tiles[0].length; x++) {
-                JLabel tile = getNewTile(x, y);
+                JLabel tile = getNewTile(x, y, rows, cols, mines);
                 tiles[y][x] = tile;
                 panel.add(tile);
             }
@@ -42,7 +38,7 @@ public class UI extends JFrame {
         setVisible(true);
     }
 
-    private JLabel getNewTile(int x, int y) {
+    private JLabel getNewTile(int x, int y, int rows, int cols, int mines) {
         JLabel tile = new JLabel();
         tile.setPreferredSize(new Dimension(CELL_SIZE, CELL_SIZE));
         tile.setOpaque(true);
@@ -54,7 +50,7 @@ public class UI extends JFrame {
             @Override
             public void mousePressed(MouseEvent e) {
                 if (!game.isRunning()) {
-                    game = new Game(ROWS, COLS, MINES);
+                    game = new Game(rows, cols, mines);
                 } else if (e.getButton() == MouseEvent.BUTTON1) {
                     game.dig(x, y);
                 } else if (e.getButton() == MouseEvent.BUTTON3) {
